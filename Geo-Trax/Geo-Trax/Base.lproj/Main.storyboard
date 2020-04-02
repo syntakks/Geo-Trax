@@ -78,7 +78,7 @@
                     <view key="view" contentMode="scaleToFill" id="WRL-kt-Pc3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.17867721782559387" green="0.17949143830442857" blue="0.18193409974093266" alpha="0.96657680457746475" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="Kbw-Gh-z2k"/>
                     </view>
                 </viewController>
