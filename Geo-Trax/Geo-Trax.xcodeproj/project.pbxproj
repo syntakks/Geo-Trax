@@ -13,6 +13,8 @@
 		E5077C6424355663003DD97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6224355663003DD97A /* Main.storyboard */; };
 		E5077C6624355664003DD97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6524355664003DD97A /* Assets.xcassets */; };
 		E5077C6924355664003DD97A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6724355664003DD97A /* LaunchScreen.storyboard */; };
+		E5D3C6AA243BAF08004E1902 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6A9243BAF08004E1902 /* Trip.swift */; };
+		E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		E5077C6524355664003DD97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5077C6824355664003DD97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5077C6A24355664003DD97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5D3C6A9243BAF08004E1902 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,33 @@
 		E5077C5B24355663003DD97A /* Geo-Trax */ = {
 			isa = PBXGroup;
 			children = (
+				E5D3C6A8243BAEE9004E1902 /* models */,
+				E5D3C6AB243CF617004E1902 /* views */,
 				E5077C5C24355663003DD97A /* AppDelegate.swift */,
 				E5077C5E24355663003DD97A /* SceneDelegate.swift */,
-				E5077C6024355663003DD97A /* MapViewController.swift */,
 				E5077C6224355663003DD97A /* Main.storyboard */,
 				E5077C6524355664003DD97A /* Assets.xcassets */,
 				E5077C6724355664003DD97A /* LaunchScreen.storyboard */,
 				E5077C6A24355664003DD97A /* Info.plist */,
 			);
 			path = "Geo-Trax";
+			sourceTree = "<group>";
+		};
+		E5D3C6A8243BAEE9004E1902 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				E5D3C6A9243BAF08004E1902 /* Trip.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		E5D3C6AB243CF617004E1902 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				E5077C6024355663003DD97A /* MapViewController.swift */,
+				E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */,
+			);
+			path = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5D3C6AA243BAF08004E1902 /* Trip.swift in Sources */,
 				E5077C6124355663003DD97A /* MapViewController.swift in Sources */,
+				E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */,
 				E5077C5D24355663003DD97A /* AppDelegate.swift in Sources */,
 				E5077C5F24355663003DD97A /* SceneDelegate.swift in Sources */,
 			);

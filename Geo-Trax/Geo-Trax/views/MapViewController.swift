@@ -11,21 +11,28 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController {
-
+//Outlets
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var centerButton: UIButton!
-    @IBOutlet weak var optionsButton: UIButton!
+    @IBOutlet weak var newTripButton: UIButton!
+    @IBOutlet weak var bannerView: UIView!
     
-    var currentLocation: CLLocation? = nil
+// Location Variables
+    var previousLocation: CLLocation? = nil
     let locationManager = CLLocationManager()
-    let regionInMeters: Double = 500
+    let regionInMeters: Double = 100
     var isPanning = false
+// Trip
+    var currentTrip: Trip?
+    var isRecordingTrip: Bool = false
     
 //MARK: - View Controller Delegate
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
         checkLocationServices()
+        slideBanner()
     }
     
     func setupButtons() {
@@ -36,16 +43,29 @@ class MapViewController: UIViewController {
         centerButton.layer.shadowOpacity = 0.5
         centerButton.layer.cornerRadius = centerButton.frame.width / 2
         
-        optionsButton.layer.shadowColor = UIColor.black.cgColor
-        optionsButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        optionsButton.layer.masksToBounds = false
-        optionsButton.layer.shadowRadius = 1.0
-        optionsButton.layer.shadowOpacity = 0.5
-        optionsButton.layer.cornerRadius = centerButton.frame.width / 2
+        newTripButton.layer.shadowColor = UIColor.black.cgColor
+        newTripButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        newTripButton.layer.masksToBounds = false
+        newTripButton.layer.shadowRadius = 1.0
+        newTripButton.layer.shadowOpacity = 0.5
+        newTripButton.layer.cornerRadius = centerButton.frame.width / 2
     }
     
     @IBAction func didPressCenterButton(_ sender: Any) {
         isPanning = false
+        mapView.userTrackingMode = .follow
+    }
+    
+    @IBAction func didPressNewTripButton(_ sender: Any) {
+        if isRecordingTrip {
+            //TODO: - Promt the user asking if they want to end the current trip.
+            isRecordingTrip = false
+            slideBanner()
+            setNewTripButtonState()
+        } else {
+            performSegue(withIdentifier: "newTripSegue", sender: nil)
+        }
+        
     }
     
     //MARK: - Location Methods
@@ -107,6 +127,7 @@ class MapViewController: UIViewController {
     func startMapView() {
         showUserLocation()
         centerViewOnUserLocation()
+        mapView.userTrackingMode = .follow
         locationManager.startUpdatingLocation()
     }
     
@@ -117,12 +138,56 @@ class MapViewController: UIViewController {
             for recognizer in gestureRecognizers {
                 if( recognizer.state == UIGestureRecognizer.State.began ||
                     recognizer.state == UIGestureRecognizer.State.ended ) {
+                    mapView.userTrackingMode = .none
                     return true
                 }
             }
         }
         return false
     }
+    
+    
+//MARK: - Record Trip
+    func startNewTrip(trip: Trip) {
+        previousLocation = nil
+        currentTrip = trip
+        isRecordingTrip = true
+        slideBanner()
+        setNewTripButtonState()
+    }
+        
+    func slideBanner() {
+        UIView.animate(withDuration: 1, animations: {
+            if self.isRecordingTrip {
+                // Slide it out.
+                self.bannerView.transform = CGAffineTransform(translationX: 0, y: 0)
+
+            } else {
+                // Slide it in.
+                 self.bannerView.transform = CGAffineTransform(translationX: 0, y: -130)
+
+            }
+        }) { (Bool) in
+            if (self.bannerView.isHidden) {
+                self.bannerView.isHidden = false
+            }
+        }
+    }
+    
+    func setNewTripButtonState() {
+        if isRecordingTrip {
+            UIView.animate(withDuration: 1.0) {
+                self.newTripButton.backgroundColor = .red
+                self.newTripButton.setImage(UIImage(systemName: "stop"), for: .normal)
+            }
+        } else {
+            UIView.animate(withDuration: 1.0) {
+                self.newTripButton.backgroundColor = .systemGreen
+                self.newTripButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            }
+        }
+    }
+
     
 }
 
@@ -141,12 +206,32 @@ extension CLLocationCoordinate2D {
 extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("Location Coordinate: \(String(describing: locations.last?.coordinate))")
+        print("MAP: Coordinate: Lat:\(String(describing: locations.last?.coordinate.latitude)) Long: \(String(describing: locations.last?.coordinate.longitude))")
         if isPanning { return }
         guard let location = locations.last else { return }
-        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-        mapView.setRegion(region, animated: true)
+        if previousLocation == nil {
+            previousLocation = location
+        } else {
+            guard let latestLocation = locations.last else { return }
+            if let distanceInMeters = previousLocation?.distance(from: latestLocation) {
+                print("MAP: Distance (meters): \(distanceInMeters)")
+                print("MAP: Speed: \(latestLocation.speed * 2.236936) MPH")
+                print("MAP:======================================================================")
+                if let trip = currentTrip {
+                    if isRecordingTrip {
+                        trip.distance += distanceInMeters
+                        print("TRIP: Client: \(String(describing: trip.clientId))")
+                        print("TRIP: Start: \(trip.startDate)")
+                        print("TRIP: New Distance: \(distanceInMeters)")
+                        print("TRIP: Total Distance: \(trip.distance)")
+                        print("TRIP:======================================================================")
+                    }
+                }
+                
+            }
+            previousLocation = latestLocation
+        }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
