@@ -13,8 +13,15 @@
 		E5077C6424355663003DD97A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6224355663003DD97A /* Main.storyboard */; };
 		E5077C6624355664003DD97A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6524355664003DD97A /* Assets.xcassets */; };
 		E5077C6924355664003DD97A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5077C6724355664003DD97A /* LaunchScreen.storyboard */; };
-		E5D3C6AA243BAF08004E1902 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6A9243BAF08004E1902 /* Trip.swift */; };
+		E5500790243D366C00D728F4 /* helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550078F243D366C00D728F4 /* helpers.swift */; };
+		E550079A243D4AE300D728F4 /* Geo-Trax.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E5500798243D4AE300D728F4 /* Geo-Trax.xcdatamodeld */; };
+		E55007A2243D652800D728F4 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55007A0243D652800D728F4 /* Trip+CoreDataClass.swift */; };
+		E55007A3243D652800D728F4 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */; };
+		E557CCD6243EC2B100E24234 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E557CCD5243EC2B100E24234 /* CoreDataStack.swift */; };
+		E5D3C6AA243BAF08004E1902 /* TripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6A9243BAF08004E1902 /* TripData.swift */; };
 		E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */; };
+		E5E23C54243D7EBB00238AD5 /* TripsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E23C53243D7EBB00238AD5 /* TripsListViewController.swift */; };
+		E5E23C56243D7F0400238AD5 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E23C55243D7F0400238AD5 /* TripCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +33,15 @@
 		E5077C6524355664003DD97A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5077C6824355664003DD97A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5077C6A24355664003DD97A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E5D3C6A9243BAF08004E1902 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		E550078F243D366C00D728F4 /* helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helpers.swift; sourceTree = "<group>"; };
+		E5500799243D4AE300D728F4 /* Geo-Trax.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Geo-Trax.xcdatamodel"; sourceTree = "<group>"; };
+		E55007A0243D652800D728F4 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E557CCD5243EC2B100E24234 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		E5D3C6A9243BAF08004E1902 /* TripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripData.swift; sourceTree = "<group>"; };
 		E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
+		E5E23C53243D7EBB00238AD5 /* TripsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListViewController.swift; sourceTree = "<group>"; };
+		E5E23C55243D7F0400238AD5 /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,22 +74,51 @@
 		E5077C5B24355663003DD97A /* Geo-Trax */ = {
 			isa = PBXGroup;
 			children = (
+				E5500791243D495A00D728F4 /* data */,
+				E550078E243D364B00D728F4 /* extensions */,
 				E5D3C6A8243BAEE9004E1902 /* models */,
 				E5D3C6AB243CF617004E1902 /* views */,
+				E550079B243D613500D728F4 /* resources */,
 				E5077C5C24355663003DD97A /* AppDelegate.swift */,
 				E5077C5E24355663003DD97A /* SceneDelegate.swift */,
-				E5077C6224355663003DD97A /* Main.storyboard */,
-				E5077C6524355664003DD97A /* Assets.xcassets */,
-				E5077C6724355664003DD97A /* LaunchScreen.storyboard */,
 				E5077C6A24355664003DD97A /* Info.plist */,
 			);
 			path = "Geo-Trax";
 			sourceTree = "<group>";
 		};
+		E550078E243D364B00D728F4 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E550078F243D366C00D728F4 /* helpers.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		E5500791243D495A00D728F4 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				E55007A0243D652800D728F4 /* Trip+CoreDataClass.swift */,
+				E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */,
+				E557CCD5243EC2B100E24234 /* CoreDataStack.swift */,
+				E5500798243D4AE300D728F4 /* Geo-Trax.xcdatamodeld */,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		E550079B243D613500D728F4 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				E5077C6224355663003DD97A /* Main.storyboard */,
+				E5077C6524355664003DD97A /* Assets.xcassets */,
+				E5077C6724355664003DD97A /* LaunchScreen.storyboard */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		E5D3C6A8243BAEE9004E1902 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				E5D3C6A9243BAF08004E1902 /* Trip.swift */,
+				E5D3C6A9243BAF08004E1902 /* TripData.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -85,6 +128,8 @@
 			children = (
 				E5077C6024355663003DD97A /* MapViewController.swift */,
 				E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */,
+				E5E23C53243D7EBB00238AD5 /* TripsListViewController.swift */,
+				E5E23C55243D7F0400238AD5 /* TripCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -160,11 +205,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5D3C6AA243BAF08004E1902 /* Trip.swift in Sources */,
+				E55007A3243D652800D728F4 /* Trip+CoreDataProperties.swift in Sources */,
+				E5D3C6AA243BAF08004E1902 /* TripData.swift in Sources */,
 				E5077C6124355663003DD97A /* MapViewController.swift in Sources */,
+				E557CCD6243EC2B100E24234 /* CoreDataStack.swift in Sources */,
 				E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */,
 				E5077C5D24355663003DD97A /* AppDelegate.swift in Sources */,
+				E5E23C56243D7F0400238AD5 /* TripCell.swift in Sources */,
 				E5077C5F24355663003DD97A /* SceneDelegate.swift in Sources */,
+				E550079A243D4AE300D728F4 /* Geo-Trax.xcdatamodeld in Sources */,
+				E5E23C54243D7EBB00238AD5 /* TripsListViewController.swift in Sources */,
+				E55007A2243D652800D728F4 /* Trip+CoreDataClass.swift in Sources */,
+				E5500790243D366C00D728F4 /* helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +414,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E5500798243D4AE300D728F4 /* Geo-Trax.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E5500799243D4AE300D728F4 /* Geo-Trax.xcdatamodel */,
+			);
+			currentVersion = E5500799243D4AE300D728F4 /* Geo-Trax.xcdatamodel */;
+			path = "Geo-Trax.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E5077C5124355663003DD97A /* Project object */;
 }

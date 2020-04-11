@@ -11,12 +11,23 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController {
-//Outlets
+// Core Data
+    //private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    //private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = CoreDataStack().managedObjectContext
     
+//Outlets
+    @IBOutlet weak var bannerView: UIView!
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var tripsListButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var centerButton: UIButton!
     @IBOutlet weak var newTripButton: UIButton!
-    @IBOutlet weak var bannerView: UIView!
+    
+// Upper button constraints
+    @IBOutlet weak var listButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var settingsButtonTopConstraint: NSLayoutConstraint!
     
 // Location Variables
     var previousLocation: CLLocation? = nil
@@ -24,7 +35,7 @@ class MapViewController: UIViewController {
     let regionInMeters: Double = 100
     var isPanning = false
 // Trip
-    var currentTrip: Trip?
+    var currentTrip: TripData?
     var isRecordingTrip: Bool = false
     
 //MARK: - View Controller Delegate
@@ -36,12 +47,19 @@ class MapViewController: UIViewController {
     }
     
     func setupButtons() {
-        centerButton.layer.shadowColor = UIColor.black.cgColor
-        centerButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        centerButton.layer.masksToBounds = false
-        centerButton.layer.shadowRadius = 1.0
-        centerButton.layer.shadowOpacity = 0.5
-        centerButton.layer.cornerRadius = centerButton.frame.width / 2
+        tripsListButton.layer.shadowColor = UIColor.black.cgColor
+        tripsListButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        tripsListButton.layer.masksToBounds = false
+        tripsListButton.layer.shadowRadius = 1.0
+        tripsListButton.layer.shadowOpacity = 0.5
+        tripsListButton.layer.cornerRadius = centerButton.frame.width / 2
+        
+        settingsButton.layer.shadowColor = UIColor.black.cgColor
+        settingsButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        settingsButton.layer.masksToBounds = false
+        settingsButton.layer.shadowRadius = 1.0
+        settingsButton.layer.shadowOpacity = 0.5
+        settingsButton.layer.cornerRadius = centerButton.frame.width / 2
         
         newTripButton.layer.shadowColor = UIColor.black.cgColor
         newTripButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -49,23 +67,58 @@ class MapViewController: UIViewController {
         newTripButton.layer.shadowRadius = 1.0
         newTripButton.layer.shadowOpacity = 0.5
         newTripButton.layer.cornerRadius = centerButton.frame.width / 2
+        
+        centerButton.layer.shadowColor = UIColor.black.cgColor
+        centerButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        centerButton.layer.masksToBounds = false
+        centerButton.layer.shadowRadius = 1.0
+        centerButton.layer.shadowOpacity = 0.5
+        centerButton.layer.cornerRadius = centerButton.frame.width / 2
     }
-    
-    @IBAction func didPressCenterButton(_ sender: Any) {
-        isPanning = false
-        mapView.userTrackingMode = .follow
+
+//MARK: - Button Press Events
+    @IBAction func didPressSettingsButton(_ sender: Any) {
+        
     }
     
     @IBAction func didPressNewTripButton(_ sender: Any) {
         if isRecordingTrip {
-            //TODO: - Promt the user asking if they want to end the current trip.
-            isRecordingTrip = false
-            slideBanner()
-            setNewTripButtonState()
+            presentSaveAlert()
         } else {
             performSegue(withIdentifier: "newTripSegue", sender: nil)
         }
-        
+    }
+    
+    private func presentSaveAlert() {
+        let alert = UIAlertController(title: "End Trip?", message: "Would you like to save your trip and stop tracking milage?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action:UIAlertAction!) in
+            self.saveTrip()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    private func saveTrip() {
+        print("SAVE TRIP")
+        isRecordingTrip = false
+        slideBanner()
+        slideUpperButtons()
+        setNewTripButtonState()
+        if let currentTrip = currentTrip {
+            currentTrip.endDate = Date()
+            let trip = Trip(entity: Trip.entity(), insertInto: context)
+            trip.startDate = currentTrip.startDate
+            trip.endDate = currentTrip.endDate!
+            trip.distanceMeters = currentTrip.distanceMeters
+            trip.clientId = currentTrip.clientId ?? ""
+            context.saveChanges()
+            //appDelegate.saveContext()
+        }
+    }
+    
+    @IBAction func didPressCenterButton(_ sender: Any) {
+           isPanning = false
+           mapView.userTrackingMode = .follow
     }
     
     //MARK: - Location Methods
@@ -148,11 +201,13 @@ class MapViewController: UIViewController {
     
     
 //MARK: - Record Trip
-    func startNewTrip(trip: Trip) {
+    func startNewTrip(trip: TripData) {
         previousLocation = nil
         currentTrip = trip
+        distanceLabel.text = "0.0 Miles"
         isRecordingTrip = true
         slideBanner()
+        slideUpperButtons()
         setNewTripButtonState()
     }
         
@@ -161,10 +216,9 @@ class MapViewController: UIViewController {
             if self.isRecordingTrip {
                 // Slide it out.
                 self.bannerView.transform = CGAffineTransform(translationX: 0, y: 0)
-
             } else {
                 // Slide it in.
-                 self.bannerView.transform = CGAffineTransform(translationX: 0, y: -130)
+                self.bannerView.transform = CGAffineTransform(translationX: 0, y: -130)
 
             }
         }) { (Bool) in
@@ -174,16 +228,35 @@ class MapViewController: UIViewController {
         }
     }
     
+    func slideUpperButtons() {
+        UIView.animate(withDuration: 1, animations: {
+            if self.isRecordingTrip {
+                // Slide it out.
+                self.tripsListButton.transform = CGAffineTransform(translationX: 0, y: 94)
+                self.settingsButton.transform = CGAffineTransform(translationX: 0, y: 94)
+            } else {
+                // Slide it in.
+                self.tripsListButton.transform = .identity
+                self.settingsButton.transform = .identity
+            }
+        }) { (Bool) in
+            
+        }
+    }
+    
     func setNewTripButtonState() {
         if isRecordingTrip {
             UIView.animate(withDuration: 1.0) {
                 self.newTripButton.backgroundColor = .red
                 self.newTripButton.setImage(UIImage(systemName: "stop"), for: .normal)
+                self.newTripButton.transform = CGAffineTransform(translationX: 0, y: -10)
+                self.newTripButton.transform = CGAffineTransform(scaleX: 1.25, y: 1.25)
             }
         } else {
             UIView.animate(withDuration: 1.0) {
                 self.newTripButton.backgroundColor = .systemGreen
                 self.newTripButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                self.newTripButton.transform = .identity
             }
         }
     }
@@ -219,11 +292,12 @@ extension MapViewController: CLLocationManagerDelegate {
                 print("MAP:======================================================================")
                 if let trip = currentTrip {
                     if isRecordingTrip {
-                        trip.distance += distanceInMeters
+                        trip.distanceMeters += distanceInMeters
+                        distanceLabel.text = "\(trip.distanceMiles) Miles"
                         print("TRIP: Client: \(String(describing: trip.clientId))")
                         print("TRIP: Start: \(trip.startDate)")
                         print("TRIP: New Distance: \(distanceInMeters)")
-                        print("TRIP: Total Distance: \(trip.distance)")
+                        print("TRIP: Total Distance: \(trip.distanceMeters) Meters")
                         print("TRIP:======================================================================")
                     }
                 }

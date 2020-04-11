@@ -8,22 +8,25 @@
 
 import Foundation
 
-class Trip {
+class TripData {
     var clientId: String?
     let startDate: Date
-    let endDate: Date?
+    var endDate: Date?
+    var distanceMeters: Double
     var duration: Double {
-        if let end = endDate {
-            return startDate.distance(to: end)
-        }
-        return 0
+           if let end = endDate {
+               return startDate.distance(to: end)
+           }
+           return 0
+       }
+    var distanceMiles: Double {
+        return (distanceMeters * 0.000621371).truncate(places: 3)
     }
-    var distance: Double
     
     init(startDate: Date, clientId: String?) {
         self.startDate = startDate
         self.endDate = nil
-        self.distance = 0
+        self.distanceMeters = 0
         self.clientId = clientId
     }
 }

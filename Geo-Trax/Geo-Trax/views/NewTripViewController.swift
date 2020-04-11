@@ -9,9 +9,7 @@
 import UIKit
 
 class NewTripViewController: UIViewController {
-    
     @IBOutlet weak var clientIdTextField: UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +29,7 @@ class NewTripViewController: UIViewController {
     func startNewTrip() {
         print("Starting trip...")
         if let presenter = presentingViewController as? MapViewController {
-            let newTrip = Trip(startDate: Date(), clientId: clientIdTextField.text)
+            let newTrip = TripData(startDate: Date(), clientId: clientIdTextField.text)
             dismiss(animated: true, completion: {
                 presenter.startNewTrip(trip: newTrip)
             })
