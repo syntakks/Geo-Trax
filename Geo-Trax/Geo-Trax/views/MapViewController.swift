@@ -12,8 +12,6 @@ import CoreLocation
 
 class MapViewController: UIViewController {
 // Core Data
-    //private let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    //private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     private let context = CoreDataStack().managedObjectContext
     
 //Outlets
@@ -112,7 +110,6 @@ class MapViewController: UIViewController {
             trip.distanceMeters = currentTrip.distanceMeters
             trip.clientId = currentTrip.clientId ?? ""
             context.saveChanges()
-            //appDelegate.saveContext()
         }
     }
     

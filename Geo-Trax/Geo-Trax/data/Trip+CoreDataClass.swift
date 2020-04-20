@@ -11,8 +11,8 @@ import Foundation
 import CoreData
 
 public class Trip: NSManagedObject {
-    var duration: Double {
-        return startDate.distance(to: endDate)
+    var duration: String {
+        return Date.getDurationBetween(startDate, and: endDate)
     }
     
     var distanceMiles: Double {

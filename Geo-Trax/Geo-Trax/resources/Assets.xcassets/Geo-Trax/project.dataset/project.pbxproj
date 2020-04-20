@@ -18,7 +18,6 @@
 		E55007A2243D652800D728F4 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55007A0243D652800D728F4 /* Trip+CoreDataClass.swift */; };
 		E55007A3243D652800D728F4 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */; };
 		E557CCD6243EC2B100E24234 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E557CCD5243EC2B100E24234 /* CoreDataStack.swift */; };
-		E5A8B284244CAF5300F7EF4B /* TripFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A8B283244CAF5300F7EF4B /* TripFetchedResultsController.swift */; };
 		E5D3C6AA243BAF08004E1902 /* TripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6A9243BAF08004E1902 /* TripData.swift */; };
 		E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */; };
 		E5E23C54243D7EBB00238AD5 /* TripsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E23C53243D7EBB00238AD5 /* TripsListViewController.swift */; };
@@ -39,7 +38,6 @@
 		E55007A0243D652800D728F4 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E557CCD5243EC2B100E24234 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		E5A8B283244CAF5300F7EF4B /* TripFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripFetchedResultsController.swift; sourceTree = "<group>"; };
 		E5D3C6A9243BAF08004E1902 /* TripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripData.swift; sourceTree = "<group>"; };
 		E5D3C6AC243CF643004E1902 /* NewTripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTripViewController.swift; sourceTree = "<group>"; };
 		E5E23C53243D7EBB00238AD5 /* TripsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 				E55007A1243D652800D728F4 /* Trip+CoreDataProperties.swift */,
 				E557CCD5243EC2B100E24234 /* CoreDataStack.swift */,
 				E5500798243D4AE300D728F4 /* Geo-Trax.xcdatamodeld */,
-				E5A8B283244CAF5300F7EF4B /* TripFetchedResultsController.swift */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -215,7 +212,6 @@
 				E5D3C6AD243CF643004E1902 /* NewTripViewController.swift in Sources */,
 				E5077C5D24355663003DD97A /* AppDelegate.swift in Sources */,
 				E5E23C56243D7F0400238AD5 /* TripCell.swift in Sources */,
-				E5A8B284244CAF5300F7EF4B /* TripFetchedResultsController.swift in Sources */,
 				E5077C5F24355663003DD97A /* SceneDelegate.swift in Sources */,
 				E550079A243D4AE300D728F4 /* Geo-Trax.xcdatamodeld in Sources */,
 				E5E23C54243D7EBB00238AD5 /* TripsListViewController.swift in Sources */,
@@ -365,7 +361,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5B74F682NG;
 				INFOPLIST_FILE = "Geo-Trax/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -384,7 +380,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5B74F682NG;
 				INFOPLIST_FILE = "Geo-Trax/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

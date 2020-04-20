@@ -23,5 +23,4 @@ extension Trip {
     @NSManaged public var endDate: Date
     @NSManaged public var distanceMeters: Double
     @NSManaged public var clientId: String
-
 }
